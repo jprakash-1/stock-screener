@@ -2,7 +2,7 @@ import smtplib
 import ssl
 import os
 import json  # Add this import for JSON formatting
-
+import pandas as pd
 from stock_screener.screener import screener
 
 port = 465

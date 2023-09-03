@@ -27,9 +27,9 @@ for item in all_positive_stock_info:
             histogram = round(macd_entry["Histogram"], 2)
 
             if i == 0:
-                df_list.append([stock_symbol, ema_5, ema_13, ema_21, macd, signal, histogram])
+                df_list.append([stock_symbol,  macd, signal, histogram, ema_5, ema_13, ema_21])
             else:
-                df_list.append(["----------", "----------" , "----------", "----------", macd, signal, histogram])
+                df_list.append(["-----------",  macd, signal, histogram, "----------" , "----------", "----------"])
 
 # Create the DataFrame
 columns = ["Stock Symbol", "EMA_5", "EMA_13", "EMA_21", "MACD", "Signal", "Histogram"]

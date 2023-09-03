@@ -40,3 +40,6 @@ def screener():
             print(stock_info)
         
     print("Completed Stock screening.")
+
+if __name__ == "__main__":
+    screener()

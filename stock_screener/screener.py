@@ -5,14 +5,15 @@ import pandas as pd
 from stock_screener.utils import evaluate_ema, evaluate_macd
 
 def evaluate_stock(ticker, period = "6mo"):
-    """_summary_
+    """Evaluate stock based on EMA and MACD indicators.
 
     Args:
-        ticker (_type_): _description_
-        period (str, optional): _description_. Defaults to "6mo".
+        ticker (str): The stock ticker symbol.
+        period (str, optional): The evaluation period (e.g., "6mo"). Defaults to "6mo".
 
     Returns:
-        _type_: _description_
+        tuple: A tuple containing a boolean indicating if the stock is positive based on EMA and MACD,
+               and a dictionary containing EMA and MACD information.
     """
     positive_stock = {}
     positive_stock[ticker] = {}
@@ -29,7 +30,10 @@ def evaluate_stock(ticker, period = "6mo"):
     return False, {}
 
 def screener():
-    """_summary_
+    """Screen stocks in the Nifty 500 and identify positive stocks based on EMA and MACD indicators.
+
+    Returns:
+        list: A list of dictionaries, where each dictionary contains information about a positive stock.
     """
     nifty500_file_path = "stock_screener/ticker-symbol/nifty-500.csv"
     nifty500_df = pd.read_csv(nifty500_file_path)
@@ -49,7 +53,6 @@ def screener():
             print("exception")        
     print("Completed Stock screening.")
     return all_positive_stock_info
-
 
 # if __name__ == "__main__":
 #     all_positive_stock_info = screener()

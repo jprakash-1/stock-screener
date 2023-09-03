@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from utils import evaluate_ema, evaluate_macd
+from stock_screener.utils import evaluate_ema, evaluate_macd
 
 def evaluate_stock(ticker, period = "6mo"):
     """_summary_
@@ -29,7 +29,7 @@ def evaluate_stock(ticker, period = "6mo"):
 def screener():
     """_summary_
     """
-    nifty500_df = pd.read_csv("ticker-symbol\nifty-500.csv")
+    nifty500_df = pd.read_csv("stock_screener/ticker-symbol\nifty-500.csv")
     NIFTY_500_ticker = list(nifty500_df['Symbol'])
 
     for ticker in NIFTY_500_tickers:

@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import yfinance as yf
 
-from indicators import calculate_macd, calculate_ema
+from stock_screener.indicators import calculate_macd, calculate_ema
 
 
 def evaluate_macd(ticker, period = "6mo"):

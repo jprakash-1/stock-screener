@@ -29,7 +29,7 @@ for item in all_positive_stock_info:
             if i == 0:
                 df_list.append([stock_symbol, ema_5, ema_13, ema_21, macd, signal, histogram])
             else:
-                df_list.append(["", "", "", "", macd, signal, histogram])
+                df_list.append(["-----", "-----" , "-----", "-----", macd, signal, histogram])
 
 # Create the DataFrame
 columns = ["Stock Symbol", "EMA_5", "EMA_13", "EMA_21", "MACD", "Signal", "Histogram"]

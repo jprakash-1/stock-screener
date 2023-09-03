@@ -37,6 +37,6 @@ def evaluate_ema(ticker, period="6mo"):
     ema_13 = calculate_ema(ticker, time_window=13, period=period)
     ema_21 = calculate_ema(ticker, time_window=21, period=period)
 
-    if ema_5 > ema_13 and ema_5 > ema_21:
+    if ema_5[-1] > ema_13[-1] and ema_5[-1] > ema_21[-1]:
         return True, [ema_5, ema_13, ema_21]
     return False, []

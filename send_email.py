@@ -16,16 +16,20 @@ all_positive_stock_info = screener()
 df_list = []
 for item in all_positive_stock_info:
     for stock_symbol, stock_info in item.items():
-        ema_5 = round(stock_info["ema_5"], 2)
-        ema_13 = round(stock_info["ema_13"], 2)
-        ema_21 = round(stock_info["ema_21"], 2)
+        ema_5_data = stock_info["ema_5"]
+        ema_13_data = stock_info["ema_13"]
+        ema_21_data = stock_info["ema_21"]
         macd_data = stock_info["macd"]
 
         for i, macd_entry in enumerate(macd_data):
+            ema_5 = round(ema_5_data[i],2)
+            ema_13 = round(ema_13_data[i],2)
+            ema_21 = round(ema_21_data[i],2)
+            
             macd = round(macd_entry["MACD"], 2)
             signal = round(macd_entry["Signal"], 2)
             histogram = round(macd_entry["Histogram"], 2)
-            
+
             df_list.append([stock_symbol,  macd, signal, histogram, ema_5, ema_13, ema_21])
 
 # Create the DataFrame

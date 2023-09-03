@@ -51,8 +51,8 @@ def screener():
     return all_positive_stock_info
 
 
-if __name__ == "__main__":
-    all_positive_stock_info = screener()
-    # Convert the list of dictionaries to a JSON-formatted string with indentation
-    formatted_data = json.dumps(all_positive_stock_info, indent=4)
-    print(formatted_data)
+# if __name__ == "__main__":
+#     all_positive_stock_info = screener()
+#     # Convert the list of dictionaries to a JSON-formatted string with indentation
+#     formatted_data = json.dumps(all_positive_stock_info, indent=4)
+#     print(formatted_data)

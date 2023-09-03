@@ -1,0 +1,1 @@
+"""Stock screener based on some indicators."""

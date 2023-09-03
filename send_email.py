@@ -14,15 +14,18 @@ all_positive_stock_info = screener()
 
 # Convert JSON data to a pandas DataFrame
 df_list = []
-for item in all_positive_stock_info:
+for item in data:
     for stock_symbol, stock_info in item.items():
         ema_5 = stock_info["ema_5"]
         ema_13 = stock_info["ema_13"]
         ema_21 = stock_info["ema_21"]
         macd_data = stock_info["macd"]
 
-        for macd_entry in macd_data:
-            df_list.append([stock_symbol, ema_5, ema_13, ema_21, macd_entry["MACD"], macd_entry["Signal"], macd_entry["Histogram"]])
+        for i, macd_entry in enumerate(macd_data):
+            if i == 0:
+                df_list.append([stock_symbol, ema_5, ema_13, ema_21, macd_entry["MACD"], macd_entry["Signal"], macd_entry["Histogram"]])
+            else:
+                df_list.append(["", "", "", "", macd_entry["MACD"], macd_entry["Signal"], macd_entry["Histogram"]])
 
 # Create the DataFrame
 columns = ["Stock Symbol", "EMA_5", "EMA_13", "EMA_21", "MACD", "Signal", "Histogram"]

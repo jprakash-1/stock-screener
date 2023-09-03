@@ -11,12 +11,10 @@ USERNAME = os.environ.get('USER_EMAIL')
 PASSWORD = os.environ.get('USER_PASSWORD')
 
 all_positive_stock_info = screener()
-# Convert the list of dictionaries to a JSON-formatted string with indentation
-formatted_data = json.dumps(all_positive_stock_info, indent=4)
 
 # Convert JSON data to a pandas DataFrame
 df_list = []
-for item in formatted_data:
+for item in all_positive_stock_info:
     for stock_symbol, stock_info in item.items():
         ema_5 = stock_info["ema_5"]
         ema_13 = stock_info["ema_13"]

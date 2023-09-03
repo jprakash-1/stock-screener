@@ -14,7 +14,7 @@ all_positive_stock_info = screener()
 
 # Convert JSON data to a pandas DataFrame
 df_list = []
-for item in data:
+for item in all_positive_stock_info:
     for stock_symbol, stock_info in item.items():
         ema_5 = stock_info["ema_5"]
         ema_13 = stock_info["ema_13"]

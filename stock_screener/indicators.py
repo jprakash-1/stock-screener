@@ -40,9 +40,8 @@ def calculate_ema(ticker, time_window ,period = "6mo"):
     Returns:
         _type_: _description_
     """
-    ticker = ticker + ".NS"
     data = yf.Ticker(ticker).history(period="6mo")
     ema = data['Close'].rolling(time_window).mean()
 
-    return ema
+    return ema[-1]
 

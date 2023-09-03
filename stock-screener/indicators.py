@@ -29,11 +29,12 @@ def calculate_macd(ticker, period):
     macd_df = pd.DataFrame({'MACD': macd, 'Signal': signal, 'Histogram': histogram})
     return macd_df
 
-def calculate_ema(ticker, period = "6mo"):
+def calculate_ema(ticker, time_window ,period = "6mo"):
     """_summary_
 
     Args:
         ticker (_type_): _description_
+        time_window (_type_): _description_
         period (str, optional): _description_. Defaults to "6mo".
 
     Returns:
@@ -41,9 +42,7 @@ def calculate_ema(ticker, period = "6mo"):
     """
     ticker = ticker + ".NS"
     data = yf.Ticker(ticker).history(period="6mo")
-    ema_5 = data['Close'].rolling(5).mean()
-    ema_13 = data['Close'].rolling(13).mean()
-    ema_21 = data['Close'].rolling(21).mean()
+    ema = data['Close'].rolling(time_window).mean()
 
-    return ema_5, ema_13, ema_21
+    return ema
 

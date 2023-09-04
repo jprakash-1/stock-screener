@@ -11,8 +11,8 @@ USERNAME = os.environ.get('USER_EMAIL')
 PASSWORD = os.environ.get('USER_PASSWORD')
 
 def format_dataframe_with_boundaries(df):
-    # Step 1: Calculate column widths
-    column_widths = [max(len(str(col)), df[col].astype(str).str.len().max()) for col in df.columns]
+    # Step 1: Create a list of column names and set a fixed width of 50 characters for each column
+    column_widths = [50] * len(df.columns)
 
     # Step 2: Create a separator line with cell boundaries
     separator = '+'.join(['-' * (width + 10) for width in column_widths])
@@ -39,13 +39,11 @@ def format_dataframe_with_boundaries(df):
     for _, row in df.iterrows():
         row_data = []
         for col, width in zip(df.columns, column_widths):
-            # Check if the cell value is numeric (int or float)
-            if isinstance(row[col], (int, float)):
-                # Format numeric cell values as centered with two decimal places
-                formatted_value = f"{row[col]: ^{width}.2f}"
-            else:
-                # Format non-numeric cell values as left-aligned
-                formatted_value = f"{row[col]: <{width}}"
+            cell_value = str(row[col])
+            # Calculate the number of spaces to add to reach the desired width
+            spaces_to_add = width - len(cell_value)
+            # Format cell values with additional spaces to achieve the desired width
+            formatted_value = f"{cell_value}{' ' * spaces_to_add}"
             row_data.append(formatted_value)
         output += '| ' + ' | '.join(row_data) + ' |\n'
         output += separator + '\n'

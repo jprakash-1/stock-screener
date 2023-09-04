@@ -11,8 +11,8 @@ USERNAME = os.environ.get('USER_EMAIL')
 PASSWORD = os.environ.get('USER_PASSWORD')
 
 def format_dataframe_with_boundaries(df):
-    # Step 1: Create a list of column names and set a fixed width of 50 characters for each column
-    column_widths = [50] * len(df.columns)
+    # Step 1: Create a list of column names and set a fixed width of 30 characters for each column
+    column_widths = [30] * len(df.columns)
 
     # Step 2: Create a separator line with cell boundaries
     separator = '+'.join(['-' * (width + 10) for width in column_widths])

@@ -11,23 +11,47 @@ USERNAME = os.environ.get('USER_EMAIL')
 PASSWORD = os.environ.get('USER_PASSWORD')
 
 def format_dataframe_with_boundaries(df):
-    # Calculate column widths
+    # Step 1: Calculate column widths
     column_widths = [max(len(str(col)), df[col].astype(str).str.len().max()) for col in df.columns]
 
-    # Create separator line with cell boundaries
+    # Step 2: Create a separator line with cell boundaries
     separator = '+'.join(['-' * (width + 10) for width in column_widths])
 
-    # Initialize the output string with headers and separator
+    # Step 3: Initialize the output string with headers and separator
     output = separator + '\n'
-    output += '| ' + ' | '.join([f"{col: ^{width}}".center(width) for col, width in zip(df.columns, column_widths)]) + ' |\n'
+    
+    # Step 4: Format column headers using a for loop
+    headers = '|'
+    for col, width in zip(df.columns, column_widths):
+        # Check if the column contains numeric values (int or float)
+        if df[col].dtype in ['int64', 'float64']:
+            # Format numeric column headers as centered with the specified width
+            formatted_header = f"{col: ^{width}}".center(width)
+        else:
+            # Format non-numeric column headers as left-aligned with the specified width
+            formatted_header = f"{col: <{width}}".center(width)
+        headers += f" {formatted_header} |"
+    headers += '\n'
+    output += headers
     output += separator + '\n'
 
-    # Iterate through DataFrame rows and add data with cell boundaries and proper alignment
+    # Step 5: Iterate through DataFrame rows and add data with cell boundaries and proper alignment
     for _, row in df.iterrows():
-        output += '| ' + ' | '.join([f"{row[col]: ^{width}.2f}" if isinstance(row[col], (int, float)) else f"{row[col]: <{width}}".center(width) for col, width in zip(df.columns, column_widths)]) + ' |\n'
+        row_data = []
+        for col, width in zip(df.columns, column_widths):
+            # Check if the cell value is numeric (int or float)
+            if isinstance(row[col], (int, float)):
+                # Format numeric cell values as centered with two decimal places
+                formatted_value = f"{row[col]: ^{width}.2f}"
+            else:
+                # Format non-numeric cell values as left-aligned
+                formatted_value = f"{row[col]: <{width}}"
+            row_data.append(formatted_value)
+        output += '| ' + ' | '.join(row_data) + ' |\n'
         output += separator + '\n'
 
     return output
+
 
 
 all_positive_stock_info = screener()

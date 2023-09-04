@@ -10,26 +10,24 @@ smtp_server = "smtp.gmail.com"
 USERNAME = os.environ.get('USER_EMAIL')
 PASSWORD = os.environ.get('USER_PASSWORD')
 
-def dataframe_to_text_with_boundaries(df):
-    # Get the column names as a list
-    columns = df.columns.tolist()
-    
-    # Calculate the maximum width for each column (including headers)
-    column_widths = [max(len(str(col)), df[col].astype(str).str.len().max()) for col in columns]
-    
-    # Create a separator line with cell boundaries
-    separator = '+'.join(['-' * (width + 15) for width in column_widths])
-    
+# Function to format a pandas DataFrame with cell boundaries and proper alignment
+def format_dataframe_with_boundaries(df):
+    # Calculate column widths
+    column_widths = [max(len(str(col)), df[col].astype(str).str.len().max()) for col in df.columns]
+
+    # Create separator line with cell boundaries
+    separator = '+'.join(['-' * (width + 2) for width in column_widths])
+
     # Initialize the output string with headers and separator
     output = separator + '\n'
-    output += '| ' + ' | '.join([f"{col:{width}}" for col, width in zip(columns, column_widths)]) + ' |\n'
+    output += '| ' + ' | '.join([f"{col: <{width}}".center(width) for col, width in zip(df.columns, column_widths)]) + ' |\n'
     output += separator + '\n'
-    
-    # Iterate through the DataFrame and add rows with cell boundaries
+
+    # Iterate through DataFrame rows and add data with cell boundaries and proper alignment
     for _, row in df.iterrows():
-        output += '| ' + ' | '.join([f"{row[col]:{width}}" for col, width in zip(columns, column_widths)]) + ' |\n'
+        output += '| ' + ' | '.join([f"{row[col]: <{width}}".center(width) for col, width in zip(df.columns, column_widths)]) + ' |\n'
         output += separator + '\n'
-    
+
     return output
 
 

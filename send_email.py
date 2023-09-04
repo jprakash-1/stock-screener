@@ -15,7 +15,7 @@ def format_dataframe_with_boundaries(df):
     column_widths = [25] * len(df.columns)
 
     # Step 2: Create a separator line with cell boundaries
-    separator = '+'.join(['-' * (width + 10) for width in column_widths])
+    separator = '+'.join(['.' * (width + 10) for width in column_widths])
 
     # Step 3: Initialize the output string with headers and separator
     output = separator + '\n'

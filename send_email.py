@@ -24,7 +24,7 @@ def format_dataframe_with_boundaries(df):
 
     # Iterate through DataFrame rows and add data with cell boundaries and proper alignment
     for _, row in df.iterrows():
-        output += '| ' + ' | '.join([f"{row[col]: ^{width}.2f}".center(width) for col, width in zip(df.columns, column_widths)]) + ' |\n'
+        output += '| ' + ' | '.join([f"{row[col]: ^{width}.2f}" if isinstance(row[col], (int, float)) else f"{row[col]: <{width}}".center(width) for col, width in zip(df.columns, column_widths)]) + ' |\n'
         output += separator + '\n'
 
     return output

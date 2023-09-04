@@ -18,7 +18,7 @@ def dataframe_to_text_with_boundaries(df):
     column_widths = [max(len(str(col)), df[col].astype(str).str.len().max()) for col in columns]
     
     # Create a separator line with cell boundaries
-    separator = '+'.join(['-' * (width + 2) for width in column_widths])
+    separator = '+'.join(['-' * (width + 15) for width in column_widths])
     
     # Initialize the output string with headers and separator
     output = separator + '\n'

@@ -52,7 +52,7 @@ for item in all_positive_stock_info:
 # Create the DataFrame
 columns = ["Stock Symbol", "MACD", "Signal", "Histogram", "EMA_5", "EMA_13", "EMA_21" ]
 df = pd.DataFrame(df_list, columns=columns)
-formatted_string = dataframe_to_text_with_boundaries(df)
+formatted_string = format_dataframe_with_boundaries(df)
 
 # Email content
 message = f"Stock Data:\n\n{formatted_string}"

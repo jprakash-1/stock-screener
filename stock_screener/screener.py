@@ -40,7 +40,7 @@ def screener():
     NIFTY_500_tickers = list(nifty500_df['Symbol'])
 
     all_positive_stock_info = []
-    for ticker in NIFTY_500_tickers[:100]:
+    for ticker in NIFTY_500_tickers:
         print(ticker)
         try:
             ticker = ticker + ".NS"

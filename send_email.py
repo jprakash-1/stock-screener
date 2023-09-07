@@ -62,16 +62,17 @@ for item in all_positive_stock_info:
         ema_13 = round(stock_info["ema_13"], 2)
         ema_21 = round(stock_info["ema_21"], 2)
         macd_data = stock_info["macd"]
+        ema_200 = stock_info["ema_200"]
 
         for i, macd_entry in enumerate(macd_data):
             macd = round(macd_entry["MACD"], 2)
             signal = round(macd_entry["Signal"], 2)
             histogram = round(macd_entry["Histogram"], 2)
             
-            df_list.append([stock_symbol,  macd, signal, histogram, ema_5, ema_13, ema_21])
+            df_list.append([stock_symbol,  macd, signal, histogram, ema_5, ema_13, ema_21, ema_200])
 
 # Create the DataFrame
-columns = ["Stock Symbol", "MACD", "Signal", "Histogram", "EMA_5", "EMA_13", "EMA_21" ]
+columns = ["Stock Symbol", "MACD", "Signal", "Histogram", "EMA_5", "EMA_13", "EMA_21", "EMA_200" ]
 df = pd.DataFrame(df_list, columns=columns)
 formatted_string = format_dataframe_with_boundaries(df)
 

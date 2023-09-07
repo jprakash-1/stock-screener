@@ -40,3 +40,14 @@ def evaluate_ema(ticker, period="6mo"):
     if ema_5 > ema_13 and ema_5 > ema_21:
         return True, [ema_5, ema_13, ema_21]
     return False, []
+
+def calculate_200_days_ema(ticker, period = "5y"):
+    """_summary_
+
+    Args:
+        ticker (_type_): _description_
+        period (str, optional): _description_. Defaults to "2y".
+    """
+    ema_200 =  calculate_ema(ticker, time_window=5, period=period)
+
+    return ema_200

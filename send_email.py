@@ -62,7 +62,8 @@ for item in all_positive_stock_info:
         ema_13 = round(stock_info["ema_13"], 2)
         ema_21 = round(stock_info["ema_21"], 2)
         macd_data = stock_info["macd"]
-        ema_200 = stock_info["ema_200"]
+        ema_200 = stock_info.get('stock_info', "")
+        
 
         for i, macd_entry in enumerate(macd_data):
             macd = round(macd_entry["MACD"], 2)

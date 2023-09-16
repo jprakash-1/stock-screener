@@ -4,10 +4,7 @@ import os
 import json  # Add this import for JSON formatting
 import pandas as pd
 from stock_screener.screener import screener
-import polars as pl
-
-with pl.Config() as cfg:
-    cfg.set_fmt_str_lengths(50)
+from email.message import EmailMessage
 
 port = 465
 smtp_server = "smtp.gmail.com"
@@ -15,9 +12,10 @@ USERNAME = os.environ.get('USER_EMAIL')
 PASSWORD = os.environ.get('USER_PASSWORD')
 
 formatted_string = screener()
+message = EmailMessage()
 
 # Email content
-message = f"Stock Data:\n\n{formatted_string}"
+message.set_content(f"Stock Data:\n\n{formatted_string}") 
 
 context = ssl.create_default_context()
 with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:

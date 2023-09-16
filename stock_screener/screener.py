@@ -31,7 +31,6 @@ def evaluate_stock(ticker, period = "6mo"):
         positive_stock[ticker]["ema_21"] = ema_record[2][-1]
         positive_stock[ticker]['macd'] = macd_record.to_dict("records")[-1]
         positive_stock[ticker]["ema_200"] = ema_200[-1]
-        print(ema_200)
     
         return True, positive_stock
     return False, {}

@@ -14,11 +14,14 @@ PASSWORD = os.environ.get('USER_PASSWORD')
 formatted_string = screener()
 message = EmailMessage()
 
-# Email content
+# Email info
 message.set_content(f"Stock Data:\n\n{formatted_string}") 
+message['To'] = USERNAME
+message['From'] = USERNAME
+message['Subject'] = "Stock Screener"
 
 context = ssl.create_default_context()
 with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
     server.login(USERNAME, PASSWORD)
     # Replace USERNAME with the recipient's email address
-    server.sendmail(USERNAME, USERNAME, message)
+    server.send_message(message)

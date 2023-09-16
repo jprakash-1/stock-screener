@@ -42,4 +42,4 @@ def calculate_ema(ticker, time_window, period="6mo"):
     data = yf.Ticker(ticker).history(period=period)
     ema = data['Close'].ewm(span=time_window, adjust=False).mean()
 
-    return ema.iloc[-1]
+    return ema.iloc[-5:].values

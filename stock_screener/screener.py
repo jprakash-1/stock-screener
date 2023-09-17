@@ -3,10 +3,6 @@ import json
 import numpy as np
 import pandas as pd
 from stock_screener.utils import evaluate_ema, evaluate_macd, calculate_200_days_ema, format_positive_stocks
-import polars as pl
-
-with pl.Config() as cfg:
-    cfg.set_fmt_str_lengths(50)
 
 def evaluate_stock(ticker, period = "6mo"):
     """Evaluate stock based on EMA and MACD indicators.
@@ -47,15 +43,14 @@ def screener():
 
     all_positive_stock_info = []
     for ticker in NIFTY_500_tickers[:50]:
-        print(ticker)
-        # try:
-        ticker = ticker + ".NS"
-        period = "1y"
-        stock_sentiment, stock_info = evaluate_stock(ticker, period)
-        if stock_sentiment: 
-            all_positive_stock_info.append(stock_info)
-        # except: 
-        #     print("exception")        
+        try:
+            ticker = ticker + ".NS"
+            period = "1y"
+            stock_sentiment, stock_info = evaluate_stock(ticker, period)
+            if stock_sentiment: 
+                all_positive_stock_info.append(stock_info)
+        except: 
+            print("exception")        
     print("Completed Stock screening.")
     return format_positive_stocks(all_positive_stock_info)
 

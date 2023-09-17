@@ -14,18 +14,17 @@ PASSWORD = os.environ.get('USER_PASSWORD')
 
 formatted_df = screener()
 
-name = "Jainendra"
 body = """
 <html>
 <head>
 </head>
 
 <body>
-Hi {1},
+Hi,
 
 <br><br>
 
-Please find below the Report 
+Please find the screener report 
         {0}
 </body>
 
@@ -38,8 +37,7 @@ Please find below the Report
         font_family="Open Sans",
         font_size="13px",
         text_align="justify",
-    ),
-    name,
+    )
 )
 message = EmailMessage()
 

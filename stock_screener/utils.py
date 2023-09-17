@@ -48,6 +48,7 @@ def format_positive_stocks(positive_stocks):
         output_dict = {}
         stock_name = list(positive_stock.keys())[0]
         output_dict[stock_name] = {}
+        output_dict[stock_name]['Stock Name'] = stock_name
         for key, value in positive_stock[stock_name].items():
             if key != "macd":
                 output_dict[stock_name][key] = value
@@ -56,13 +57,7 @@ def format_positive_stocks(positive_stocks):
                     output_dict[stock_name][macd_key] = macd_value
         screened_stocks.append(output_dict)
 
-    new_data = []
-    for screened_stock in screened_stocks:
-        stock_name, value = list(screened_stock.items())[0]
-        value['Stock Name'] = stock_name
-        new_data.append(value)
-
-    output_message = pd.DataFrame(new_data)
+    output_message = pd.DataFrame(screened_stocks)
 
     return output_message
 

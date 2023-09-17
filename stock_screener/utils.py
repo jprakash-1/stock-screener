@@ -67,6 +67,6 @@ def calculate_200_days_ema(ticker, period = "5y"):
         ticker (_type_): _description_
         period (str, optional): _description_. Defaults to "2y".
     """
-    ema_200 =  calculate_ema(ticker, time_window=5, period=period)
+    ema_200 =  calculate_ema(ticker, time_window=200, period=period)
 
     return ema_200

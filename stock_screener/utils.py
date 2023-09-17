@@ -65,10 +65,7 @@ def format_positive_stocks(positive_stocks):
         value['Stock Name'] = stock_name
         new_data.append(value)
 
-    polars_df = pl.DataFrame(new_data)
-    with pl.Config() as cfg:
-        cfg.set_fmt_str_lengths(50)
-        output_message = f"{polars_df}"
+    output_message = pd.DataFrame(new_data)
 
     return output_message
 

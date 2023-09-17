@@ -59,8 +59,8 @@ def screener():
     print("Completed Stock screening.")
     return format_positive_stocks(all_positive_stock_info)
 
-if __name__ == "__main__":
-    print("SCREENER RUNNING")
-    all_positive_stock_info = screener()
+# if __name__ == "__main__":
+#     print("SCREENER RUNNING")
+#     all_positive_stock_info = screener()
 
-    print(all_positive_stock_info)
+#     print(all_positive_stock_info)

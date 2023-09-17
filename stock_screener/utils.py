@@ -55,8 +55,7 @@ def format_positive_stocks(positive_stocks):
             elif key == "macd":
                 for macd_key, macd_value in value.items():
                     output_dict[stock_name][macd_key] = macd_value
-        screened_stocks.append(output_dict)
-
+        screened_stocks.append(output_dict[stock_name])
     output_message = pd.DataFrame(screened_stocks)
 
     return output_message

@@ -42,7 +42,15 @@ def evaluate_ema(ticker, period="6mo"):
         return True, [ema_5, ema_13, ema_21]
     return False, []
 
-def format_positive_stocks(positive_stocks):
+def format_positive_stocks(positive_stocks: List[Dict[str,Any]]) -> List[Dict[str,Any]]:
+    """Format the screened stocks.
+
+    Args:
+        positive_stocks (List[Dict[str,Any]]): _description_
+
+    Returns:
+        List[Dict[str,Any]]: _description_
+    """
     screened_stocks = []
     for positive_stock in positive_stocks:
         output_dict = {}
@@ -61,11 +69,14 @@ def format_positive_stocks(positive_stocks):
     return output_message
 
 def calculate_200_days_ema(ticker, period = "5y"):
-    """_summary_
+    """Calculate Exponential Moving average for a given stock.
 
     Args:
-        ticker (_type_): _description_
-        period (str, optional): _description_. Defaults to "2y".
+        ticker (str): The stock ticker symbol.
+        period (str, optional): The data retrieval period. Defaults to "5y".
+
+    Returns:
+        Stock 200 days exponential moving average price.
     """
     ema_200 =  calculate_ema(ticker, time_window=200, period=period)
 

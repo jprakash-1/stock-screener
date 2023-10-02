@@ -42,7 +42,7 @@ def evaluate_ema(ticker, period="6mo"):
         return True, [ema_5, ema_13, ema_21]
     return False, []
 
-def format_positive_stocks(positive_stocks: List[Dict[str,Any]]) -> List[Dict[str,Any]]:
+def format_positive_stocks(positive_stocks):
     """Format the screened stocks.
 
     Args:

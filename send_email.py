@@ -42,7 +42,7 @@ Please find the screener report
 message = EmailMessage()
 
 # Email info
-message['To'] = USERNAME
+message['To'] = ["jainendraprakash13901@gmail.com"]
 message['From'] = USERNAME
 message['Subject'] = "Stock Screener"
 message.add_alternative(body, subtype="html")

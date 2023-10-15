@@ -2,9 +2,9 @@ import os
 import json
 import numpy as np
 import pandas as pd
-from stock_screener.utils import evaluate_ema, evaluate_macd, calculate_200_days_ema, format_positive_stocks
+from stock_screener.utils import evaluate_ema, evaluate_macd, calculate_200_days_ema, format_positive_stocks, fetch_stock_data
 
-def evaluate_stock(ticker, period = "6mo"):
+def evaluate_stock(ticker, periods = 1):
     """Evaluate stock based on EMA and MACD indicators.
 
     Args:
@@ -17,9 +17,12 @@ def evaluate_stock(ticker, period = "6mo"):
     """
     positive_stock = {}
     positive_stock[ticker] = {}
-    ema_flag, ema_record = evaluate_ema(ticker, period) 
-    macd_flag, macd_record = evaluate_macd(ticker, period)
-    ema_200 = calculate_200_days_ema(ticker, period = "5y")
+ 
+    stock_data = fetch_stock_data(ticker, periods = periods)
+
+    ema_flag, ema_record = evaluate_ema(stock_data) 
+    macd_flag, macd_record = evaluate_macd(stock_data)
+    ema_200 = calculate_200_days_ema(stock_data)
 
     if ema_flag and macd_flag: 
         positive_stock[ticker]["ema_5"] = ema_record[0][-1]
@@ -45,17 +48,17 @@ def screener():
     for ticker in NIFTY_500_tickers:
         try:
             ticker = ticker + ".NS"
-            period = "1y"
-            stock_sentiment, stock_info = evaluate_stock(ticker, period)
+            periods = 5
+            stock_sentiment, stock_info = evaluate_stock(ticker, periods)
             if stock_sentiment: 
                 all_positive_stock_info.append(stock_info)
-        except: 
-            print("exception")        
+        except Exception as e:
+          print(f"Error fetching data for {ticker}: {e}")        
     print("Completed Stock screening.")
     return format_positive_stocks(all_positive_stock_info)
 
-# if __name__ == "__main__":
-#     print("SCREENER RUNNING")
-#     all_positive_stock_info = screener()
+if __name__ == "__main__":
+    print("SCREENER RUNNING")
+    all_positive_stock_info = screener()
 
-#     print(all_positive_stock_info)
+    print(all_positive_stock_info)

@@ -1,7 +1,7 @@
 import pandas as pd
 import yfinance as yf
 
-def calculate_macd(ticker, period):
+def calculate_macd(data):
     """Calculate MACD (Moving Average Convergence Divergence) indicators for a given stock.
 
     Args:
@@ -11,8 +11,6 @@ def calculate_macd(ticker, period):
     Returns:
         pandas.DataFrame: A DataFrame containing MACD, Signal, and Histogram values.
     """
-    # Get the stock data from Yahoo Finance
-    data = yf.download(ticker, period=period)
     # Calculate the 12-day EMA
     ema_12 = data['Close'].ewm(span=12, adjust=False).mean()
     # Calculate the 26-day EMA
@@ -27,7 +25,7 @@ def calculate_macd(ticker, period):
     macd_df = pd.DataFrame({'MACD': macd, 'Signal': signal, 'Histogram': histogram})
     return macd_df
 
-def calculate_ema(ticker, time_window, period="6mo"):
+def calculate_ema(data, time_window):
     """Calculate Exponential Moving Average (EMA) for a given stock.
 
     Args:
@@ -39,7 +37,6 @@ def calculate_ema(ticker, time_window, period="6mo"):
     Returns:
         float: The EMA value for the specified time window.
     """
-    data = yf.Ticker(ticker).history(period=period)
     ema = data['Close'].ewm(span=time_window, adjust=False).mean()
 
     return ema.iloc[-5:].values

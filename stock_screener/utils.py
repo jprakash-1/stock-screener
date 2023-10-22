@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import yfinance as yf
 from datetime import datetime, timedelta
+import pytz
 
 from stock_screener.indicators import calculate_macd, calculate_ema
 
@@ -32,7 +33,7 @@ def evaluate_ema(data):
         period (str, optional): The data retrieval period. Defaults to "6mo".
 
     Returns:
-        tuple: A tuple containing a boolean value indicating whether EMA is bullish,
+        tuple: A tuple containing a boolean value indicating wh ether EMA is bullish,
                and a list of EMA values for the time windows (5, 13, and 21).
     """
     ema_5 = calculate_ema(data, time_window=5)
@@ -98,3 +99,93 @@ def fetch_stock_data(ticker, periods = 1):
         return None
 
 
+def calculate_cagr(beginning_value, ending_value, num_years):
+    """
+    Calculate the Compound Annual Growth Rate (CAGR).
+
+    Args:
+    beginning_value (float): The initial investment or value.
+    ending_value (float): The final investment or value.
+    num_years (int): The number of years over which the growth occurred.
+
+    Returns:
+    float: The CAGR as a percentage.
+    """
+    # Calculate the CAGR formula
+    cagr = ((ending_value / beginning_value) ** (1 / num_years)) - 1
+
+    # Convert to a percentage
+    cagr_percentage = cagr * 100
+
+    return cagr_percentage
+
+def calculate_percent_change(old_value, new_value):
+    """
+    Calculate the percent change between an old value and a new value.
+
+    Args:
+    old_value (float): The initial value.
+    new_value (float): The final value.
+
+    Returns:
+    float: The percent change as a percentage.
+    """
+    percent_change = ((new_value - old_value) / old_value) * 100
+    return percent_change
+    
+def get_datetime_info(date_range):
+  start_date = pd.to_datetime(date_range.split('|')[0]).strftime('%b-%Y')
+  end_date = pd.to_datetime(date_range.split('|')[1]).strftime('%b-%Y')
+
+  return str(start_date) + "\n | \n" + str(end_date)
+
+
+def calculate_rolling_return(data, window):
+  total_traded_days = len(data['Close']) - 1
+  stock_rolling_returns = []
+  temp_data = data['Close']
+
+  for day in range(0, total_traded_days - window):
+    single_iteration_return = {}
+    start_idx = total_traded_days - day
+    end_idx = total_traded_days - (day + window)
+
+    # Calculate daily returns
+    daily_returns = temp_data[start_idx] - temp_data[end_idx]
+
+    ending_value = data.iloc[start_idx]['Close']
+    beginning_value = data.iloc[end_idx]['Close']
+    # Get the Close prices for the specified date range
+    close_prices_end = data.iloc[start_idx:start_idx + 1]['Close'].to_dict()
+    close_prices_start = data.iloc[end_idx:end_idx + 1]['Close'].to_dict()
+    cagr = calculate_cagr(beginning_value, ending_value, num_years = 3)
+    percent_change = calculate_percent_change(beginning_value, ending_value)
+    date_range = str(data.iloc[start_idx].name) +"|"+ str(data.iloc[end_idx].name)
+    
+    single_iteration_return['cagr'] = cagr
+    single_iteration_return['percent_change'] = percent_change
+    single_iteration_return['date_range'] = date_range
+    stock_rolling_returns.append(single_iteration_return)
+
+  return stock_rolling_returns
+
+def plot_rolling_returns(returns_df):
+  plt.figure(figsize=(20, 10))
+  plt.plot(returns_df['date_range'], returns_df['cagr'], linestyle='-', color='b', markersize=8)
+
+  # Set the x-axis tick locations and labels
+  x_ticks = returns_df['date_range'][::84]  # Adjust the interval as needed
+  x_labels = [get_datetime_info(date) for date in x_ticks]
+
+  plt.xticks(x_ticks, x_labels)
+  plt.xlabel('Date Range')
+  plt.ylabel('CAGR')
+  plt.title('CAGR Over Time')
+
+  min_cagr = int(returns_df['cagr'].min() // 5) - 2
+  max_cagr = int(returns_df['cagr'].max() // 5) + 2
+  # Add horizontal lines for specific CAGR values (5, 10, 15, 20)
+  for cagr_value in range(min_cagr, max_cagr):
+      plt.axhline(y=cagr_value*5, color='r', linestyle='-', linewidth=0.3)
+
+  plt.show()

@@ -1,6 +1,5 @@
 import os
 import json
-import numpy as np
 import pandas as pd
 from stock_screener.utils import evaluate_ema, evaluate_macd, calculate_200_days_ema, format_positive_stocks, fetch_stock_data
 

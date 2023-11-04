@@ -2,6 +2,7 @@ import smtplib
 import ssl
 import os
 import pandas as pd
+from pretty_html_table import build_table
 from stock_screener.screener import screener
 from email.message import EmailMessage
 

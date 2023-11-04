@@ -1,5 +1,4 @@
 import pandas as pd
-import yfinance as yf
 
 def calculate_macd(data):
     """Calculate MACD (Moving Average Convergence Divergence) indicators for a given stock.

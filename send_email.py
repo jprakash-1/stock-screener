@@ -1,9 +1,7 @@
 import smtplib
 import ssl
 import os
-import json  # Add this import for JSON formatting
 import pandas as pd
-from pretty_html_table import build_table
 from stock_screener.screener import screener
 from email.message import EmailMessage
 

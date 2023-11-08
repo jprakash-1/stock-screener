@@ -1,5 +1,6 @@
 import pandas as pd
 from stock_screener.utils import evaluate_ema, evaluate_macd, calculate_200_days_ema, format_positive_stocks, fetch_stock_data
+from stock_screener.indicators import calculate_ema
 
 def evaluate_stock(ticker, periods = 1):
     """Evaluate stock based on EMA and MACD indicators.
@@ -19,7 +20,7 @@ def evaluate_stock(ticker, periods = 1):
 
     ema_flag, ema_record = evaluate_ema(stock_data) 
     macd_flag, macd_record = evaluate_macd(stock_data)
-    ema_200 = calculate_200_days_ema(stock_data)
+    ema_200 = calculate_ema(stock_data, time_window=200)
 
     if ema_flag and macd_flag: 
         positive_stock[ticker]["ema_5"] = ema_record[0][-1]

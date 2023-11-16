@@ -19,7 +19,7 @@ jobs:
       
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt
+          pip install -r stock_screener/requirements.txt
         working-directory: ${{ github.workspace }}
       
       - name: Run email code

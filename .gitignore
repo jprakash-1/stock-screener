@@ -2,8 +2,7 @@ screener-on-colab
 **\__pycache__
 __pycache__
 .ipynb_checkpoints
-*.ipynb
-*.txt 
+*.ipynb 
 *.gsheet
 *tata*
 *temp*

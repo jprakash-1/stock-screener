@@ -1,23 +1,27 @@
 name: Sync to Hugging Face hub
+
 on:
   push:
     branches: [master]
 
-  # to run this workflow manually from the Actions tab
+  # To run this workflow manually from the Actions tab
   workflow_dispatch:
 
 jobs:
   sync-to-hub:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
           lfs: true
+
       - name: Push to hub
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        run: git remote add space https://huggingface.co/spaces/Jprakash-1/rolling_returns
-        run: git add rolling_returns/
-        run: git commit -m "Update rolling returns."
-        run: git push --force space main
+        run: |
+          git remote add space https://huggingface.co/spaces/Jprakash-1/rolling_returns
+          git add rolling_returns/
+          git commit -m "Update rolling returns."
+          git push space main

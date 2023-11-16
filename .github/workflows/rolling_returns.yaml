@@ -17,4 +17,7 @@ jobs:
       - name: Push to hub
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        run: git push -f https://Jprakash-1:$HF_TOKEN@huggingface.co/spaces/Jprakash-1/rolling_returns main
+        run: git remote add space https://huggingface.co/spaces/Jprakash-1/rolling_returns
+        run: git add rolling_returns/
+        run: git commit -m "Update rolling returns."
+        run: git push --force space main

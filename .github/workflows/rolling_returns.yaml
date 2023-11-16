@@ -26,5 +26,5 @@ jobs:
           git config --global user.name "Your Name"
           git add rolling_returns/
           git status
-          git commit --allow-empty-m "Update rolling returns."
+          git commit --allow-empty -m "Update rolling returns."
           git push -f space master 

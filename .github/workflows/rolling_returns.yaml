@@ -2,7 +2,7 @@ name: Sync to Hugging Face hub
 
 on:
   push:
-    branches: [master]
+    branches: [main]
 
   # To run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -22,8 +22,6 @@ jobs:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
           git remote add space https://huggingface.co/spaces/Jprakash-1/rolling_returns
-          git config --global user.email "you@example.com"
-          git config --global user.name "Your Name"
           git add rolling_returns/
           git status
           git commit --allow-empty -m "Update rolling returns."

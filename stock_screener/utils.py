@@ -90,7 +90,12 @@ def fetch_stock_data(ticker, periods = 1):
         end_date = today.strftime('%Y-%m-%d')
         
         # Download historical stock data from Yahoo Finance
-        half_decade_stock_data = yf.download(ticker, period= str(periods)+"y")
+        half_decade_stock_data = yf.download(ticker, period= str(periods)+"y", auto_adjust=True)
+        
+        # Flatten MultiIndex columns if present (happens with newer yfinance versions)
+        if isinstance(half_decade_stock_data.columns, pd.MultiIndex):
+            half_decade_stock_data.columns = half_decade_stock_data.columns.get_level_values(0)
+            
         stock_data = half_decade_stock_data.loc[(half_decade_stock_data.index >= start_date) & (half_decade_stock_data.index <= end_date)]
         return stock_data
     except Exception as e:

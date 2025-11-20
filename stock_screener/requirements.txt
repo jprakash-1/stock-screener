@@ -1,9 +1,8 @@
 yfinance
-et-xmlfile
-openpyxl
 pandas
 pretty-html-table
 python-dateutil
 pytz
 six
 tzdata
+matplotlib

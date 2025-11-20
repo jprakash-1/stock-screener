@@ -3,6 +3,7 @@ import pandas as pd
 import yfinance as yf
 from datetime import datetime, timedelta
 
+import matplotlib.pyplot as plt
 from stock_screener.indicators import calculate_macd, calculate_ema
 
 

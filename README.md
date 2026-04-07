@@ -140,16 +140,6 @@ This will:
 
 The email includes a nicely formatted HTML table with all the screened stock data.
 
-### Reproducing Issues
-
-Run the issue reproduction script to test data fetching:
-
-```bash
-python reproduce_issue.py
-```
-
-This checks if yfinance data columns are properly flattened (important for handling newer yfinance versions).
-
 ## Modules
 
 ### screener.py

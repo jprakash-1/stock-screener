@@ -17,6 +17,9 @@ def evaluate_stock(ticker, periods = 1):
     positive_stock[ticker] = {}
  
     stock_data = fetch_stock_data(ticker, periods = periods)
+    
+    if stock_data is None:
+        return False, {}
 
     ema_flag, ema_record = evaluate_ema(stock_data) 
     macd_flag, macd_record = evaluate_macd(stock_data)
@@ -51,7 +54,7 @@ def screener():
             if stock_sentiment: 
                 all_positive_stock_info.append(stock_info)
         except Exception as e:
-          print(f"Error fetching data for {ticker}: {e}")        
+            print(f"Error fetching data for {ticker}: {e}")        
     print("Completed Stock screening.")
     return format_positive_stocks(all_positive_stock_info)
 

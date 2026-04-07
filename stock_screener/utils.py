@@ -20,7 +20,7 @@ def evaluate_macd(data):
     """
     macd_df = calculate_macd(data)
     hist = macd_df.tail()['Histogram']
-    if hist[-1] > 0 and hist[-2] < 0:
+    if hist.iloc[-1] > 0 and hist.iloc[-2] < 0:
         return True, macd_df.tail()
     return False, None
 
@@ -97,6 +97,10 @@ def fetch_stock_data(ticker, periods = 1):
             half_decade_stock_data.columns = half_decade_stock_data.columns.get_level_values(0)
             
         stock_data = half_decade_stock_data.loc[(half_decade_stock_data.index >= start_date) & (half_decade_stock_data.index <= end_date)]
+        
+        if stock_data.empty:
+            return None
+
         return stock_data
     except Exception as e:
         print(f"Error fetching data for {ticker}: {e}")

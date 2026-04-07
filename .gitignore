@@ -6,3 +6,4 @@ __pycache__
 *.gsheet
 *tata*
 *temp*
+.venv
